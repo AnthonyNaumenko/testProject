@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}postPage{% endblock %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h2 class="display-4">{{ advert.title }}</h2>
+
+        <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
+        <p class="lead">{{ advert.description }}</p>
+    </div>
+</div>
+{% endblock %}
