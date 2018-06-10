@@ -8,6 +8,17 @@
             <div class="nav-item"> {{ render(url('fos_user_security_login')) }} </div>
         {% endif %}
 
+{% for advert in adverts %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-4">{{ advert.title }}</h2>
+            <h2 class="display-4">{{ advert.user }}</h2>
+            <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
+            <p class="lead">{{ advert.description }}</p>
+
+        </div>
+    </div>
+    {% endfor %}
 
 
     <style>

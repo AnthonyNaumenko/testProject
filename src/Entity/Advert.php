@@ -29,16 +29,19 @@ class Advert
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $authorName;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="advert")
+     * @ORM\JoinColumn()
+     */
+    private $user;
 
     public function __construct()
     {
@@ -74,17 +77,6 @@ class Advert
         return $this;
     }
 
-    public function getAuthorName(): ?string
-    {
-        return $this->authorName;
-    }
-
-    public function setAuthorName(string $authorName): self
-    {
-        $this->authorName = $authorName;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -97,4 +89,17 @@ class Advert
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
 }
