@@ -4,26 +4,36 @@
 
 {% block body %}
 
-        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <div class="nav-item"> {{ render(url('fos_user_security_login')) }} </div>
-        {% endif %}
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="nav-item"> {{ render(url('fos_user_security_login')) }} </div>
+    {% endif %}
 
-{% for advert in adverts %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h2 class="display-4">{{ advert.title }}</h2>
-            <h2 class="display-4">{{ advert.user }}</h2>
-            <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
-            <p class="lead">{{ advert.description }}</p>
+    {% for advert in adverts %}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <a class="display-4" href="{{ path('show', {id: advert.id}) }}">{{ advert.title }}</a>
+                <h2 class="display-4">{{ advert.user }}</h2>
+                <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
+                <p class="lead">{{ advert.description }}</p>
 
-        </div>
-    </div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if  app.user.username == advert.user %}
+                        <p><a href="{{ path('delete', {id: advert.id}) }} " class="btn btn-danger">Delete</a></p>
+                        <p><a href="{{ path('edit',  {id: advert.id}) }} "class="btn btn-primary">Edit</a></p>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+          </div>
     {% endfor %}
 
+    <div class="navigation">
+        {{ knp_pagination_render(adverts) }}
+    </div>
 
     <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
 {% endblock %}

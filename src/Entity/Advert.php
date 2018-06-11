@@ -29,12 +29,10 @@ class Advert
      */
     private $description;
 
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
-
 
     /**
      *
@@ -77,7 +75,6 @@ class Advert
         return $this;
     }
 
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -100,6 +97,5 @@ class Advert
         $this->user = $user;
         return $this;
     }
-
 
 }

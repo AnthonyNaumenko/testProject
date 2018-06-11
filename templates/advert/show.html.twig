@@ -3,13 +3,21 @@
 
 {% block body %}
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h2 class="display-4">{{ advert.title }}</h2>
-       <h2 class="display-4">{{ advert.user }}</h2>
-        <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
-        <p class="lead">{{ advert.description }}</p>
-    </div>
-</div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h2 class="display-4">{{ advert.title }}</h2>
+                <h2 class="display-4">{{ advert.user }}</h2>
+                <h4>{{ advert.createdAt|date("d.M.y H:m:s") }}</h4>
+                <p class="lead">{{ advert.description }}</p>
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if  app.user.username == advert.user %}
+                        <p><a href="{{ path('delete', {id: advert.id}) }} " class="btn btn-danger">Delete</a></p>
+                        <p><a href="{{ path('edit',  {id: advert.id}) }} "class="btn btn-primary">Edit</a></p>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
 
 {% endblock %}
